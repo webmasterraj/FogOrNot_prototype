@@ -1,0 +1,25 @@
+"neighborhood","city","state","country","id","lat","lon","distance_km","distance_mi","fog_1hr","fog_3hr","fog_6hr","fog_12hr","fog_24hr"
+"1","Inner Sunset","San Francisco","CA","US","KCASANFR320",37.75555,-122.475159,0,0,1,1,0,0,0
+"2","Inner Sunset","San Francisco","CA","US","KCASANFR449",37.757259,-122.462135,1,1,1,2,1,0,2
+"3","Mid Richmond District","San Francisco","CA","US","KCASANFR97",37.778687,-122.484665,1,1,0,1,0,0,0
+"4","Sunset District","San Francisco","CA","US","KCASANFR342",37.743019,-122.472748,2,1,1,1,1,0,0
+"5","Forest Hill","San Francisco","CA","US","KCASANFR48",37.745262,-122.46701,2,1,1,1,1,0,2
+"6","Sunset District","San Francisco","CA","US","KCASANFR333",37.739998,-122.477859,2,1,1,1,1,0,1
+"7","West Portal","San Francisco","CA","US","KCASANFR306",37.740078,-122.470795,2,1,1,1,1,0,0
+"8","Cole Valley","San Francisco","CA","US","KCASANFR374",37.763149,-122.451881,2,1,1,2,1,0,0
+"9","Cole Valley","San Francisco","CA","US","KCASANFR382",37.763378,-122.451828,2,1,1,2,1,0,0
+"10","Richmond District","San Francisco","CA","US","KCASANFR402",37.781101,-122.462502,2,1,0,0,0,0,0
+"11","Cole Valley","San Francisco","CA","US","KCASANFR110",37.760796,-122.449608,2,1,1,2,1,0,0
+"12","West of Twin Peaks","San Francisco","CA","US","KCASANFR470",37.741432,-122.462082,2,1,2,2,2,0,0
+"13","Twin Peaks","San Francisco","CA","US","KCASANFR34",37.748829,-122.453499,2,1,1,2,2,0,0
+"14","Ocean Beach GGNRA","San Francisco","CA","US","KCASANFR107",37.771851,-122.510529,2,1,0,1,0,0,1
+"15","Sea Cliff","San Francisco","CA","US","KCASANFR334",37.786873,-122.490158,2,1,0,0,0,0,0
+"16","West of Twin Peaks","San Francisco","CA","US","KCASANFR447",37.740852,-122.4599,2,1,2,2,2,0,2
+"17","Ocean Beach - Kellys Cove","San Francisco","CA","US","KCASANFR99",37.775108,-122.510185,2,1,0,1,0,0,0
+"18","Haight-Ashbury","San Francisco","CA","US","KCASANFR396",37.768261,-122.446877,3,1,0,1,0,0,0
+"19","West of Twin Peaks","San Francisco","CA","US","KCASANFR461",37.743832,-122.452278,3,1,1,2,2,0,0
+"20","Haight-Ashbury","San Francisco","CA","US","KCASANFR340",37.771973,-122.445885,3,1,0,1,0,0,0
+"21","Buena Vista","San Francisco","CA","US","KCASANFR388",37.762058,-122.442223,3,2,1,1,1,0,2
+"22","Buena Vista Heights","San Francisco","CA","US","KCASANFR534",37.765648,-122.442101,3,2,0,1,0,0,0
+"23","Castro / Corona Heights","San Francisco","CA","US","KCASANFR512",37.763508,-122.441803,3,2,1,1,1,0,2
+"24","Twin Peaks","San Francisco","CA","US","KCASANFR496",37.754307,-122.442329,3,2,1,1,1,0,2
