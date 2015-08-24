@@ -28,6 +28,7 @@ getLocations <- function(home) {
 	locations$fog_3hr <- NA
 	locations$fog_6hr <- NA
 	locations$fog_12hr <- NA
+	locations$fog_18hr <- NA
 	locations$fog_24hr <- NA
 
 	locations

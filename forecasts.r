@@ -36,6 +36,7 @@ addFogForecasts <- function(pws) {
 	pws$fog_3hr <- fogForecast(forecast, 3)
 	pws$fog_6hr <- fogForecast(forecast, 6)
 	pws$fog_12hr <- fogForecast(forecast, 12)
+	pws$fog_18hr <- fogForecast(forecast, 18)
 	pws$fog_24hr <- fogForecast(forecast, 24)
 	pws
 }
@@ -47,6 +48,4 @@ predictFog <- function(locations) {
 	}
 	locations
 }
-
-
 

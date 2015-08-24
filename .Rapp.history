@@ -1,890 +1,611 @@
-str(temp)
-temp[1]
-temp[],1]
-temp[,1]
-temp[1,]
-str(temp[1,])
-t <- temp[1,]
-?as.Date
-paste(t$FCTTime.year, t$FCTTime.mon_padded, t$FCTTime.mday_padded)
-paste(t$FCTTime.year, t$FCTTime.mon_padded, t$FCTTime.mday_padded, sep ="-")
-t$FCTTime.year
-str(t)
-t$FCTTIME.year
-paste(t$FCTTIME.year, t$FCTTIME.mon_padded, t$FCTTIME.mday_padded, sep ="-")
-round_date(Sys.time(), unit = c("hour"))
-round_date(Sys.time(), unit = c("hour")) + 1
-round_date(Sys.time(), unit = c("hour")) + "1 hour"
-round_date(Sys.time(), unit = c("hour")) + interval("1 hour")
-round_date(Sys.time(), unit = c("hour")) + 1*60*60
-predictTime = round_date(Sys.time(), unit = c("hour")) + (hours * 60 * 60)
-hours = 1
-predictTime = round_date(Sys.time(), unit = c("hour")) + (hours * 60 * 60)
-predictTime
-as.POSIXct(t$FCTTIME.pretty)
-?as.POSIXct
-date <- paste(t$FCTTime.year, t$FCTTime.mon_padded, t$FCTTime.mday_padded)
+dateData <- getDateData (history.api)
+historicalData <- dateData
+nrow(historicalData)
+names(historicalData)
+str(historicalData$date)
+summary(historicalData$date)
+summary(historicalData$utcdate)
+date = date - 1
+max_calls_per_day = 450#
+max_calls_per_minute = 10
+Sys.sleep(60/(max_calls_per_minute + 1))
+callCount = 1
+callCount = callCount + 1
+callCount
 date
-date <- paste(t$FCTTIME.year, t$FCTTIME.mon_padded, t$FCTTIME.mday_padded)
-DATE
-date
-date <- paste(t$FCTTIME.year, t$FCTTIME.mon_padded, t$FCTTIME.mday_padded, sep = "-")\
-date <- paste(t$FCTTIME.year, t$FCTTIME.mon_padded, t$FCTTIME.mday_padded, sep = "-")
-date
-datetime <- paste(t$FCTTIME.year, t$FCTTIME.mon_padded, t$FCTTIME.mday_padded, t$FCTTIME.hour_padded, t$FCTTIME.min_padded, sep = "-")
-datetime
-datetime <- paste(t$FCTTIME.year, t$FCTTIME.mon_padded, t$FCTTIME.mday_padded, t$FCTTIME.hour_padded, t$FCTTIME.min, sep = "-")
-datetime
-as.POSIXct(datetime, format = "%Y-%m-%d-%h-%m")
-as.POSIXct(datetime, format = "%Y-%m-%d-%H-%m")
-as.POSIXct(datetime, format = "%Y-%m-%d-%H-%M")
-forecast.df$datetime <- paste(forecast.df$FCTTIME.year, forecast.df$FCTTIME.mon_padded, forecast.df$FCTTIME.mday_padded, forecast.df$FCTTIME.hour_padded, forecast.df$FCTTIME.min, sep = "-")
-forecast.df$datetime <- as.POSIXct(#
-		paste(forecast.df$FCTTIME.year, forecast.df$FCTTIME.mon_padded, forecast.df$FCTTIME.mday_padded, forecast.df$FCTTIME.hour_padded, forecast.df$FCTTIME.min, sep = "-"),#
-		format = "%Y-%m-%d-%H-%M")#
-	)
-forecast.df$datetime <- as.POSIXct(#
-		paste(forecast.df$FCTTIME.year, forecast.df$FCTTIME.mon_padded, forecast.df$FCTTIME.mday_padded, forecast.df$FCTTIME.hour_padded, forecast.df$FCTTIME.min, sep = "-"),#
-		format = "%Y-%m-%d-%H-%M"#
-	)
-getPWSForecast <- function(ID) {#
-	# gets hourly forecasts for next 10 days for 1 pws, with tempDiff and fog readings#
-	forecast.api <- urlBuilder(ID, hourlyAPI())#
-	forecast.json <- getURL(forecast.api)#
-	forecast.raw <- fromJSON(forecast.json)#
-	forecast.df <- flatten(as.data.frame(forecast.raw$hourly_forecast))#
-	forecast.df <- within(forecast.df, #
-		tempDiff <- as.numeric(temp.english) - as.numeric(dewpoint.english)#
-		)#
-	forecast.df$fog <- pmax((5 - forecast.df$tempDiff), 0, na.rm = TRUE)#
-	forecast.df$datetime <- as.POSIXct(#
-		paste(forecast.df$FCTTIME.year, forecast.df$FCTTIME.mon_padded, forecast.df$FCTTIME.mday_padded, forecast.df$FCTTIME.hour_padded, forecast.df$FCTTIME.min, sep = "-"),#
-		format = "%Y-%m-%d-%H-%M"#
-	)#
-#
-	forecast.df#
+callCount
+max_calls_per_day
+max_calls_per_day <- 10
+while((callCount <= max_calls_per_day)) {#
+	history.api <- urlBuilder(ID, histDate(dateString(date)))#
+	dateData <- getDateData (history.api)#
+	historicalData <- rbind(historicalData, dateData)#
+	date = date - 1#
+	# wait 7 minutes in between api calls. total 450 api calls#
+	Sys.sleep(60/(max_calls_per_minute + 1))#
+	print(callCount)#
+	callCount = callCount + 1#
 }
-ID
-temp <- getPWSForecast(ID)
-str(temp)
-predictTime = round_date(Sys.time(), unit = c("hour")) + (hours * 60 * 60)
-predictTime
-fogForecast <- function(forecast, hours) {#
-	predictTime = round_date(Sys.time(), unit = c("hour")) + (hours * 60 * 60)#
-	forecast[forecast$datetime == predictTime]#
-}
-fogForecast <- function(forecast, hours) {#
-	predictTime = round_date(Sys.time(), unit = c("hour")) + (hours * 60 * 60)#
-	forecast[forecast$datetime == predictTime]$fog#
-}
-fogForecast <- function(forecast, hours) {#
-	predictTime = round_date(Sys.time(), unit = c("hour")) + (hours * 60 * 60)#
-	forecast[forecast$datetime == predictTime,]$fog#
-}
-fogForecast(temp, 1)
-fogForecast(temp, 3)
-head(temp$fog)
-head(temp$fog, n = 10)
-forecast.df <- temp
-myvars <- c("FCTTIME.civil", "temp.english", "dewpoint.english", "tempDiff", "fog")#
-temp <- forecast.df[, myvars]
-head(temp)
-fogForecast <- function(forecast, hours) {#
-	predictTime = round_date(Sys.time(), unit = c("hour")) + (hours * 60 * 60)#
-	forecast[forecast$datetime == predictTime,]$fog#
-}
-fogForecast(1)
-fogForecast(forecast.df, 1)
-fogForecast(forecast.df, 4)
-head(temp, n = 12)
-fogForecast(forecast.df, 7)
-fogForecast(forecast.df, 8)
-fogForecast(forecast.df, 9)
-str(locations)
-?Sys.sleep
-# Functions for Weather Underground APIs#
+history.api <- urlBuilder(ID, histDate(dateString(date)))#
+	dateData <- getDateData (history.api)#
+	historicalData <- rbind(historicalData, dateData)#
+	date = date - 1
+require(XML)#
+require(RCurl)#
+require(lubridate)#
+require(plyr)#
+require(stringr)#
+require(jsonlite)#
 #
 urlBase = 'http://api.wunderground.com/api'#
 key = '28ceb0f69590b457'#
+max_calls_per_day = 10#
+max_calls_per_minute = 10#
 #
-max_calls_per_hour <- 10#
-max_calls_per_day <- 400#
+innerSunset.ID = 'KCASANFR156'#
 #
 urlBuilder <- function(pws, type) {#
-	paste(urlBase,'/',key,'/',type, pws,'.json',sep='')#
+	paste(urlBase,'/',key,'/',type,'/q/pws:',pws,'.json',sep='')#
 }#
 #
-hourlyAPI <- function() {#
-	'hourly10day/q/pws:'#
+histDate <- function(date) {#
+	paste('history_',date,sep='')#
 }#
 #
-geoAPI <- function() {#
-	'geolookup/q/'#
+getDateData <- function(history.api) {#
+	history.json <- getURL(history.api)#
+	history.raw <- fromJSON(history.json)#
+	history <- as.data.frame(history.raw$history$observations)#
+	history$tempi.num <- as.numeric(history$tempi)#
+	history$dewpti.num <- as.numeric(history$dewpti)#
+	history <- within(history, #
+		tempDiff <- tempi.num - dewpti.num)#
+	history$tempDiff <- history$tempi.num - history$dewpti.num#
+	history$fog <- as.factor(floor(history$tempDiff))#
+	history$time <- as.POSIXct(paste(history$date$hour, history$date$min, sep=":"),#
+		format = "%H:%M")#
+	history#
 }#
 #
-getLocations <- function(home) {#
-	locations.json <- getURL(urlBuilder(home, geoAPI()))#
-	locations.raw <- fromJSON(locations.json)#
-	locations.raw$location$nearby_weather_stations$pws$station#
+dateString <- function(d) {#
+	year <- sprintf("%04d", year(d))#
+	month <- sprintf("%02d", month(d))#
+	day <- sprintf("%02d", day(d))#
+	paste(year, month, day, sep = "")#
+}#
+#
+ID = innerSunset.ID#
+callCount = 1
+date = Sys.Date()
+history.api <- urlBuilder(ID, histDate(dateString(date)))#
+	dateData <- getDateData (history.api)
+historicalData <- dateData
+date = date - 1
+Sys.sleep(60/(max_calls_per_minute + 1))#
+	print(callCount)#
+	callCount = callCount + 1
+date
+while((callCount <= max_calls_per_day)) {#
+	history.api <- urlBuilder(ID, histDate(dateString(date)))#
+	dateData <- getDateData (history.api)#
+	historicalData <- rbind(historicalData, dateData)#
+	date = date - 1#
+	# wait 7 minutes in between api calls. total 450 api calls#
+	Sys.sleep(60/(max_calls_per_minute + 1))#
+	print(callCount)#
+	callCount = callCount + 1#
 }
-(60/(max_calls_per_minute - 1)
+str(historicalData)
+require(reshape2)
+melt(historicalData$date)
+?melt
+t <- melt(historicalData$date)
+str(t)
+?flatten
+t <- flatten(historicalData)
+str(t)
+getDateData <- function(history.api) {#
+	history.json <- getURL(history.api)#
+	history.raw <- fromJSON(history.json)#
+	history <- as.data.frame(history.raw$history$observations)#
+	history$tempi.num <- as.numeric(history$tempi)#
+	history$dewpti.num <- as.numeric(history$dewpti)#
+	history <- within(history, #
+		tempDiff <- tempi.num - dewpti.num)#
+	history$tempDiff <- history$tempi.num - history$dewpti.num#
+	history$fog <- as.factor(floor(history$tempDiff))#
+	history$time <- as.POSIXct(paste(history$date$hour, history$date$min, sep=":"),#
+		format = "%H:%M")#
+	flatten(history)#
+}
+ID = innerSunset.ID#
+callCount = 1
+date = Sys.Date()
+history.api <- urlBuilder(ID, histDate(dateString(date)))#
+	dateData <- getDateData (history.api)
+historicalData <- dateData
+str(historicalData)
+date = date - 1
+Sys.sleep(60/(max_calls_per_minute + 1))
+print(callCount)#
+	callCount = callCount + 1
+history.api <- urlBuilder(ID, histDate(dateString(date)))#
+	dateData <- getDateData (history.api)#
+	historicalData <- rbind(historicalData, dateData)
+str(historicalData)
+date = date - 1#
+	# wait 7 minutes in between api calls. total 450 api calls#
+	Sys.sleep(60/(max_calls_per_minute + 1))#
+	print(callCount)#
+	callCount = callCount + 1
+callCount
+max_calls_per_day
+while((callCount <= max_calls_per_day)) {#
+	history.api <- urlBuilder(ID, histDate(dateString(date)))#
+	dateData <- getDateData (history.api)#
+	historicalData <- rbind(historicalData, dateData)#
+	date = date - 1#
+	# wait 7 minutes in between api calls. total 450 api calls#
+	print(callCount)#
+	callCount = callCount + 1#
+	Sys.sleep(60/(max_calls_per_minute + 1))#
+}
+str(historicalData)
+summary(date.mon)
+summary(historicalData$date.mon)
+nrow(historicalData[historicalData$fog < 4])
+nrow(historicalData[historicalData$tempDiff < 4])
+nrow(historicalData[historicalData$tempDiff < 4],)
+nrow(historicalData[historicalData$tempDiff < 4,])
+nrow(historicalData)
+getData <- function() {#
+	while((callCount <= max_calls_per_day)) {#
+		print(callCount)#
+		history.api <- urlBuilder(ID, histDate(dateString(date)))#
+		dateData <- getDateData (history.api)#
+		historicalData <- rbind(historicalData, dateData)#
+		date = date - 1#
+		# wait 7 minutes in between api calls. total 450 api calls#
+		callCount = callCount + 1#
+		Sys.sleep(60/(max_calls_per_minute + 1))#
+	}#
+}
+getData
+getData()
+max_calls_per_day = 450
+getData()
+nrow(historicalData)
+str(historicalData)
+summary(as.numeric(historicalData$date.year))
+summary(as.numeric(historicalData$date.month))
+summary(as.numeric(historicalData$date.mon))
+tail(historicalData$date.mon)
+tail(historicalData$date.year)
+tail(historicalData$date.mday)
+str(dateData)
+date
+getData
+ls()
+ls
+ls()
+names(historicalData)
+str(historicalData$UV)
+ls
+ls()
+nrow(historicalData)
+date
+names(historicalData)
+tail(historicalData)
+tail(historicalData$date.pretty)
+tail(historicalData)
+myvars <- c('tempi', 'dewpti', 'tempDiff', 'fog', 'time', 'date.pretty')
+data_short <- historicalData[,myvars]
+tail(data_short)
+tail(data_short, n = 20)
+data_short
+ls()\
+ls()
+max_calls_per_day
+max_calls_per_day <- 100
+date
+callCount
+ID = innerSunset.ID#
+callCount = 1
+getData
+getData()
+require(XML)#
+require(RCurl)#
+require(lubridate)#
+require(plyr)#
+require(stringr)#
+require(jsonlite)
+urlBASE
+urlBase
+getData()
+nrow(historicalData)
+getData
+getData <- function() {#
+	while((callCount < max_calls_per_day)) {#
+		print(callCount, date)#
+		history.api <- urlBuilder(ID, histDate(dateString(date)))#
+		dateData <- getDateData (history.api)#
+		historicalData <- rbind(historicalData, dateData)#
+		date = date - 1#
+		# wait 7 minutes in between api calls. total 450 api calls#
+		callCount = callCount + 1#
+		Sys.sleep(60/(max_calls_per_minute - 1))#
+	}#
+}
+getData()
+print(callCount)#
+		print(date)
+print c(callCount, date)
+?cat
+cat(callCount, date)
+?sprintf
+sprintf(callCount, date)
+?as.String
+?as.char
+sprintf(as.character(callCount), date)
+cat(as.character(callCount), date)
+as.character(callCount)
+callCount
+date
+print(as.character(callCount), date)
+print c(as.character(callCount), date)
+c(as.character(callCount), date)
+callCount, date
+as.data.frame(callCount, date)
+print(c(as.character(callCount), date))
+date
+print(c(as.character(callCount), as.character(date)))
+print(c(callCount, as.character(date)))
+getData
+callCount
+getData <- function() {#
+	while((callCount < max_calls_per_day)) {#
+		print(c(callCount, as.character(date)))#
+		history.api <- urlBuilder(ID, histDate(dateString(date)))#
+		dateData <- getDateData (history.api)#
+		historicalData <- rbind(historicalData, dateData)#
+		date = date - 1#
+		# wait 7 minutes in between api calls. total 450 api calls#
+		callCount = callCount + 1#
+		Sys.sleep(60/(max_calls_per_minute - 1))#
+	}#
+}
+pwd()
+cd()
+getwd()
+setwd("~/Documents/FogOrNot/data")
+install.packages("ggmap")
+library(ggmap)
+mapImageData3 <- get_map(location = c(lon = -0.016179, lat = 51.538525),#
+    color = "color",#
+    source = "google",#
+    maptype = "roadmap",#
+    zoom = 16)
+ggmap(mapImageData3,#
+    extent = "device",#
+    ylab = "Latitude",#
+    xlab = "Longitude")
+mapImageData1 <- get_map(location = c(lon = -0.016179, lat = 51.538525),#
+    color = "color",#
+    source = "google",#
+    maptype = "satellite",#
+    zoom = 17)#
+ggmap(mapImageData1,#
+    extent = "device",#
+    ylab = "Latitude",#
+    xlab = "Longitude")
+map <- get_map(location = 'Europe', zoom = 4)
+ggmap(map)
+map <- get_map(location = 'San Francisco', zoom = 10)
+ggmap(map)
+map <- get_map(location = 'San Francisco', zoom = 20)
+ggmap(map)
+map <- get_map(location = 'San Francisco', zoom = 13)
+ggmap(map)
+map <- get_map(location = 'San Francisco', zoom = 11)
+ggmap(map)
+map <- get_map(location = 'San Francisco', zoom = 12)
+ggmap(map)
+map <- get_map(location = 'Twin Peaks, San Francisco', zoom = 12)
+ggmap(map)
+map <- get_map(location = 'Twin Peaks, San Francisco', zoom = 12.5)
+map <- get_map(location = 'Twin Peaks, San Francisco', zoom = 12)
+ggmap(map)
+map <- get_map(location = 'Twin Peaks, San Francisco', zoom = "auto")
+ggmap(map)
+map <- get_map(location = 'Twin Peaks, San Francisco', zoom = 12)
+ggmap(map)
+?get_cloudmade
+?get_cloudmademap
+?geocode
+geocode("inner sunset, san francisco", output = c("latlon"))
+map <- get_map(location = 'Twin Peaks, San Francisco', zoom = 13)
+ggmap(map)
+map <- get_map(location = 'Twin Peaks, San Francisco', zoom = 12)
+ggmap(map)
+ggmap(map) +
+geom_point(color = "blue")
+name <- c("inner sunet", "west portal", "twin peaks", "outer richmond")#
+ID <- c("KCASANFR320", "KCASANFR306", "KCASANFR34", "KCASANFR107")#
+lat <- c(37.756, 37.740, 37.749, 37.772)#
+lon <- c(-122.475, -122.471, -122.453, -122.511)]#
+#
+locations <- data.frame(name, ID, lat, lon)
+lon <- c(-122.475, -122.471, -122.453, -122.511)#
+#
+locations <- data.frame(name, ID, lat, lon)
+names(locations)
+showMap <- ggmap(map, #
+	base_layer = ggplot(locations, aes = (lat, lon))#
+	)
+showMap <- ggmap(map, base_layer = ggplot(locations, aes = (lat, lon)))
+showMap <- ggmap(map, base_layer = ggplot(locations, aes = (x = lat, y = lon)))
+?ggmap
+showMap <- ggmap(map) +#
+	geom_point(aes = (x = lat, y = lon), data = locations, alpha = .5)
+showMap <- ggmap(map) +#
+	geom_point(aes(x = lat, y = lon), data = locations, alpha = .5)
+print(showMap)
+locations
+showMap <- ggmap(map) +#
+	geom_point(aes(x = lat, y = lon), data = locations, colour = "blue")
+print(showMap)
+showMap <- ggmap(map) +#
+	geom_point(aes(x = lat, y = lon), data = locations, colour = "blue", size = 4)
+print(showMap)
+ggmap(map) +#
+	geom_point(aes(x = lat, y = lon), data = locations, colour = "blue", size = 4)
+ggmap(map) +#
+	geom_point(aes(x = locations$lat, y = locations$lon), data = locations, colour = "blue", size = 4)
+?ggmap
+showMap <- ggmap(map, base_layer = ggplot(locations, aes(x = lat, y = lon))
 )
-60/(60/(max_calls_per_minute - 1))
-str(locations)
-getForecasts <- function(locations, hours_to_predict) {#
-	for (pws in locations) {#
-		forecast = getPWSForecast(pws$id)#
-		pws$fogForecast = fogForecast(forecast, hours_to_predict)#
-		Sys.sleep(60/(max_calls_per_minute - 1))#
-		if (callCount > max_calls_per_day) {break}#
-	}#
-	locations#
-}
-test.locations <- head(locations, n = 10)
-test.locations
-success <- getForecasts(test.locations, 3)
-?lapply
-locations[3,]
-locations[3,]$fogForecast = 1
-locations$fogForecast = 0
-locations[3,]$fogForecast = 1
-locations$fogForecast = na
-locations$fogForecast = NA
-locations$fogForecast = NA
-pws <- locations[3,]
-str(pws)
-pws$id
-getForecasts <- function(locations) {#
-	locations$forecast = NA#
-	for (i in 1:nrow(locations)) {#
-		locations$forecast = getPWSForecast(locations[i,]$id)#
-		Sys.sleep(60/(max_calls_per_minute - 1))#
-		if (callCount > max_calls_per_day) {break}#
-	}#
-	locations#
-}
-1:nrow(locations)
-1:nrow(test.locations)
-getForecasts <- function(locations) {#
-	locations$forecast = NA#
-	for (i in 1:nrow(locations)) {#
-		locations$forecast = getPWSForecast(locations[i,]$id)#
-		Sys.sleep(60/(max_calls_per_minute - 1))#
-		if (callCount > max_calls_per_day) {break}#
-	}#
-	locations#
-}
-test.locations <- head(locations, n = 3)
-success <- getForecasts(test.locations)
-test.locations$forecast <- read.table(text = "")
-as.data.frame("")
-a <- as.data.frame("")
-str(a)
-str(test.locations)
-t <- test.locations
-t$df <- NA
-str(t)
-t$df[1,] <- test.locations
-t$df <- as.data.frame("")
-t$df
-t$df1 <- as.data.frame("")
-test.locations
-# Get fog forecasts for 1/3/6/12/24 hours from now#
-# Start with 1 hour from now#
-#
-getPWSForecast <- function(ID) {#
-	# gets hourly forecasts for next 10 days for 1 pws, with tempDiff and fog readings#
-	forecast.api <- urlBuilder(ID, hourlyAPI())#
-	forecast.json <- getURL(forecast.api)#
-	forecast.raw <- fromJSON(forecast.json)#
-	forecast.df <- flatten(as.data.frame(forecast.raw$hourly_forecast))#
-	# Add variables for tempDiff and fog. fog is limited to 0 (no fog) - 5 (most fog)#
-	forecast.df <- within(forecast.df, #
-		tempDiff <- as.numeric(temp.english) - as.numeric(dewpoint.english)#
-		)#
-	forecast.df$fog <- pmax((5 - forecast.df$tempDiff), 0, na.rm = TRUE)#
-	# Add variable for datetime in R friendly format#
-	forecast.df$datetime <- as.POSIXct(#
-		paste(forecast.df$FCTTIME.year, forecast.df$FCTTIME.mon_padded, forecast.df$FCTTIME.mday_padded, forecast.df$FCTTIME.hour_padded, forecast.df$FCTTIME.min, sep = "-"),#
-		format = "%Y-%m-%d-%H-%M"#
-	)#
-#
-	forecast.df#
-}#
-#
-fogForecast <- function(forecast, hours) {#
-	predictTime = round_date(Sys.time(), unit = c("hour")) + (hours * 60 * 60)#
-	forecast[forecast$datetime == predictTime,]$fog#
-}#
-#
-addFogForecasts <- function(pws) {#
-	# function to add columns for for forecast for 1 hour/3/6/12/24 to given location#
-	forecast <- getPWSForecast(pws$id)#
-	pws$fog_1hr <- fogForecast(forecast, 1)#
-	pws$fog_3hr <- fogForecast(forecast, 3)#
-	pws$fog_6hr <- fogForecast(forecast, 6)#
-	pws$fog_12hr <- fogForecast(forecast, 12)#
-	pws$fog_24hr <- fogForecast(forecast, 24)#
-	pws#
-}#
-#
-predictFog <- function(locations) {#
-	for (i in 1:nrow(locations)) {#
-		locations[i,] <- addFogForecasts(locations[i,])#
-	}#
-	locations#
-}
-test.locations$fog_1hr <- NA#
-	test.locations$fog_3hr <- NA#
-	test.locations$fog_6hr <- NA#
-	test.locations$fog_12hr <- NA#
-	test.locations$fog_24hr <- NA
-predictFog(test.locations)
-success <- predictFog(test.locations)
-fogMap(success)
-basemap <- SFmap()
-fogMap(basemap, success)
-fogMap <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_1hr/10), data = locations, colour = "blue", size = 14) +#
-	theme(legend.position = "none")#
-}
-fogMap(basemap, success)
-fogMap <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_1hr/10), data = locations, colour = "blue", size = 14) #
-}
-fogMap(basemap, success)
-fogMap <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_1hr), data = locations, colour = "blue", size = 14) #
-}
-fogMap(basemap, success)
-# Functions for Weather Underground APIs#
-#
-urlBase = 'http://api.wunderground.com/api'#
-key = '28ceb0f69590b457'#
-#
-max_calls_per_hour <- 10#
-max_calls_per_day <- 400#
-#
-urlBuilder <- function(pws, type) {#
-	paste(urlBase,'/',key,'/',type, pws,'.json',sep='')#
-}#
-#
-hourlyAPI <- function() {#
-	'hourly10day/q/pws:'#
-}#
-#
-geoAPI <- function() {#
-	'geolookup/q/'#
-}#
-#
-getLocations <- function(home) {#
-	locations.json <- getURL(urlBuilder(home, geoAPI()))#
-	locations.raw <- fromJSON(locations.json)#
-	locations <- locations.raw$location$nearby_weather_stations$pws$station#
-#
-	# initialize empty columns for fog forecasts to fill in later#
-	locations$fog_1hr <- NA#
-	locations$fog_3hr <- NA#
-	locations$fog_6hr <- NA#
-	locations$fog_12hr <- NA#
-	locations$fog_24hr <- NA#
-#
-	locations#
-}
-# Functions for mapping#
-#
-SFmap <- function() {#
-	get_map(#
-		location = 'Twin Peaks, San Francisco', #
-		zoom = 12,#
-		maptype = c("terrain")#
-		)#
-}#
-#
-locationsMap <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat), data = locations, colour = "blue", size = 3)#
-}#
-#
-fogMap <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_1hr), data = locations, colour = "blue", size = 14) #
-}#
-#
-# map1 <- ggmap(map, base_layer = ggplot(locations, aes(x = lat, y = lon)))#
-#
-# stat_density2d(aes(x = lon, y = lat, fill = as.factor(..level..), alpha = ..level..), data = locations)
-# Get fog forecasts for 1/3/6/12/24 hours from now#
-# Start with 1 hour from now#
-#
-getPWSForecast <- function(ID) {#
-	# gets hourly forecasts for next 10 days for 1 pws, with tempDiff and fog readings#
-	forecast.api <- urlBuilder(ID, hourlyAPI())#
-	forecast.json <- getURL(forecast.api)#
-	forecast.raw <- fromJSON(forecast.json)#
-	forecast.df <- flatten(as.data.frame(forecast.raw$hourly_forecast))#
-	# Add variables for tempDiff and fog. fog is limited to 0 (no fog) - 5 (most fog)#
-	forecast.df <- within(forecast.df, #
-		tempDiff <- as.numeric(temp.english) - as.numeric(dewpoint.english)#
-		)#
-	forecast.df$fog <- pmax((5 - forecast.df$tempDiff), 0, na.rm = TRUE)#
-	# Add variable for datetime in R friendly format#
-	forecast.df$datetime <- as.POSIXct(#
-		paste(forecast.df$FCTTIME.year, forecast.df$FCTTIME.mon_padded, forecast.df$FCTTIME.mday_padded, forecast.df$FCTTIME.hour_padded, forecast.df$FCTTIME.min, sep = "-"),#
-		format = "%Y-%m-%d-%H-%M"#
-	)#
-#
-	forecast.df#
-}#
-#
-fogForecast <- function(forecast, hours) {#
-	predictTime = round_date(Sys.time(), unit = c("hour")) + (hours * 60 * 60)#
-	forecast[forecast$datetime == predictTime,]$fog#
-}#
-#
-addFogForecasts <- function(pws) {#
-	# function to add columns for for forecast for 1 hour/3/6/12/24 to given location#
-	forecast <- getPWSForecast(pws$id)#
-	pws$fog_1hr <- fogForecast(forecast, 1)#
-	pws$fog_3hr <- fogForecast(forecast, 3)#
-	pws$fog_6hr <- fogForecast(forecast, 6)#
-	pws$fog_12hr <- fogForecast(forecast, 12)#
-	pws$fog_24hr <- fogForecast(forecast, 24)#
-	pws#
-}#
-#
-predictFog <- function(locations) {#
-	for (i in 1:nrow(locations)) {#
-		locations[i,] <- addFogForecasts(locations[i,])#
-	}#
-	locations#
-}#
-# TESTING PURPOSES ONLY#
-# myvars <- c("FCTTIME.civil", "temp.english", "dewpoint.english", "tempDiff", "fog")#
-# temp <- forecast.df[, myvars]
+print(showMap)
+map1 <- ggmap(map, base_layer = ggplot(locations, aes(x = lat, y = lon)))
+showMap <- ggmap(map) +#
+	geom_point(aes(x = lon, y = lat), data = locations, colour = "blue", size = 4)
+print(showMap)
+?geom_polygon
+?heatmap
+?geom_density2d
+names(mtcar)
+setwd("~/Documents/DataSci/FogOrNot/code")
+require(XML)#
+require(RCurl)#
+require(lubridate)#
+require(plyr)#
+require(stringr)#
+require(jsonlite)#
+require(ggmap)#
+require(ggplot2)#
+# Load my other files#
+source("wu_apis.R")#
+source("mapping.R")#
+source("forecasts.R")
 home <- '94122'#
 locations <- getLocations(home)#
-basemap <- SFmap()
-locations <- predictFog(locations)
-fogMap(basemap, locations)
-fogMap <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_1hr), data = locations, colour = "blue", size = 5) #
-}
-fogMap(basemap, locations)
-fogMap <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_1hr), data = locations, colour = "blue", size = 8) #
-}
-fogMap(basemap, locations)
-ggsave("fog3.png")
-predictFog <- function(locations) {#
-	for (i in 1:nrow(locations)) {#
-		locations[i,] <- addFogForecasts(locations[i,])#
-		Sys.sleep(60/(max_calls_per_hour - 1))#
-	}#
-	locations#
-}
-max_calls_per_minute <- 10#
-max_calls_per_day <- 400
-predictFog <- function(locations) {#
-	for (i in 1:nrow(locations)) {#
-		locations[i,] <- addFogForecasts(locations[i,])#
-		Sys.sleep(60/(max_calls_per_minute - 1))#
-	}#
-	locations#
-}
-fogMap_1hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_1hr), data = locations, colour = "blue", size = 8) #
-}#
-#
-fogMap_3hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_3hr), data = locations, colour = "blue", size = 8) #
-}#
-#
-fogMap_6hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_6hr), data = locations, colour = "blue", size = 8) #
-}#
-#
-fogMap_12hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_12hr), data = locations, colour = "blue", size = 8) #
-}#
-#
-fogMap_24hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_24hr), data = locations, colour = "blue", size = 8) #
-}#
-#
-# map1 <- ggmap(map, base_layer = ggplot(locations, aes(x = lat, y = lon)))#
-#
-# stat_density2d(aes(x = lon, y = lat, fill = as.factor(..level..), alpha = ..level..), data = locations)
-fogMap_24hr(basemap, locations)
-fogMap_12hr(basemap, locations)
-fogMap_3hr(basemap, locations)
-names(locations)
-myvars <- c("neighborhood", "id", "fog_1hr", "fog_3hr", "fog_6hr", "fog_12hr", "fog_24hr")#
-temp <- locations[, myvars]
-temp
-temp_pws <- getPWSForecast("KCASANFR340")
-str(temp_pws)
-locatins
-locations
-myvars_locations <- c("neighborhood", "id", "fog_1hr", "fog_3hr", "fog_6hr", "fog_12hr", "fog_24hr")#
-temp_locations <- locations[, myvars_locations]
-myvars_pws <- c("FCTTIME.civil", "temp.english", "dewpoint.english", "tempDiff", "fog")#
-temp_pws <- temp_pws[, myvars]
-myvars_pws <- c("FCTTIME.civil", "temp.english", "dewpoint.english", "tempDiff", "fog")#
-temp_pws <- temp_pws[, myvars_pws]
-temp_pws
-temp_locations
-fogMap
-fogMap_3hr
-str(locations$fog_3hr)
-summary(locations$fog_3hr)
-summary(locations)
-SFmap <- function() {#
-	get_map(#
-		location = '1332 16th Avenue, San Francisco', #
-		zoom = 13,#
-		maptype = c("terrain")#
-		)#
-}
-SFmap()
-basemap <- SFmap()
-print(basemap)
-ggmap(basemap)
-SFmap <- function() {#
-	get_map(#
-		location = '1332 16th Avenue, San Francisco', #
-		zoom = 13,#
-		maptype = c("terrain")#
-		)#
-}#
-#
-locationsMap <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat), data = locations, colour = "blue", size = 3)#
-}#
-#
-fogMap_1hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_1hr), data = locations, colour = "blue", size = 8) #
-}#
-#
-fogMap_3hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_3hr), data = locations, colour = "blue", size = 8) #
-}#
-#
-fogMap_6hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_6hr), data = locations, colour = "blue", size = 8) #
-}#
-#
-fogMap_12hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_12hr), data = locations, colour = "blue", size = 8) #
-}#
-#
-fogMap_24hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_24hr), data = locations, colour = "blue", size = 8) #
-}
-fogMap_24hr(basemap, locations)
-fogMap_24hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_24hr), data = locations, colour = "blue", size = 10) #
-}
-fogMap_24hr(basemap, locations)
-fogMap_24hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_24hr/5), data = locations, colour = "blue", size = 10) #
-}
-fogMap_24hr(basemap, locations)
-fogMap_24hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_24hr/5), data = locations, colour = "blue", size = 10) +#
-	scale_alpha(range = c(0.1, 1))#
-}
-fogMap_24hr(basemap, locations)
-fogMap_24hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_24hr), data = locations, colour = "blue", size = 10) +#
-	scale_alpha_discrete(range = c(0, 5))#
-}
-fogMap_24hr(basemap, locations)
-fogMap_24hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_24hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) +#
-	scale_alpha(range = c(0, 5))#
-}
-fogMap_24hr(basemap, locations)
-fogMap_24hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_24hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}
-fogMap_24hr(basemap, locations)
-ggsave("fog4.png")
-# Functions for mapping#
-#
-SFmap <- function() {#
-	get_map(#
-		location = '1332 16th Avenue, San Francisco', #
-		zoom = 13,#
-		maptype = c("terrain")#
-		)#
-}#
-#
-locationsMap <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat), data = locations, colour = "blue", size = 3)#
-}#
-#
-fogMap_1hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_1hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_3hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_3hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_6hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_6hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_12hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_12hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_24hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_24hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}
-locations
-locationsMap <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat), data = locations, colour = "blue", size = 3)#
-}#
-#
-fogMap_1hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_1hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_3hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_3hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_6hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_6hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_12hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_12hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_24hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_24hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}
-fogMap_1hr(basemap, locations)
-fogMap_12hr(basemap, locations)
-fogMap_6hr(basemap, locations)
-home2 <- '37.752669,-122.491511'#
-locations2 <- getLocations(home2)#
-locationsMap(basemap, locations2)
-home2 <- '37.757691,-122.416152'#
-locations2 <- getLocations(home2)#
-locationsMap(basemap, locations2)
-basemap3 <- SFmap(home3)
-home3 <- "mission, san francisco"#
-basemap3 <- SFmap(home3)
-# Functions for mapping#
-#
-SFmap <- function(home) {#
-	get_map(#
-		location = home,#
-		zoom = 13,#
-		maptype = c("terrain")#
-		)#
-}
-home3 <- "mission, san francisco"#
-basemap3 <- SFmap(home3)
-print(basemap3)
-ggmap(basemap3)
-SFmap <- function(home) {#
-	get_map(#
-		location = home,#
-		zoom = 12,#
-		maptype = c("terrain")#
-		)#
-}
-home3 <- "san francisco"#
-basemap3 <- SFmap(home3)
-ggmap(basemap3)
-locationsMap(basemap3, locations2)
-locationsMap(basemap3, locations)
-home3 <- "37.757691,-122.416152"#
-locations3 <- getLocations(home3)#
-locationsMap(basemap3, locations3)
-home3 <- "37.757691,-122.416152"#
-locations3 <- getLocations(home3)#
-locationsMap(basemap3, locations)
-home4 <- "37.748513,-122.505373"#
-locations4 <- getLocations(home4)#
-locationsMap(basemap3, locations4)
-locations
-locatins
-locations
-home5 <- '48.877344,2.299080'
-basemap5 <- SFmap(home5)
-ggmap(basemap5)
-home5 <- '48.877344,2.299080'#
-locations5 <- getLocations(home5)#
-locationsMap(basemap5, locations5)
-write.csv(locations)
-write.table(locations, file = "locations.csv", sep = ",")
-# Functions for mapping#
-#
-SFmap <- function(home) {#
-	get_map(#
-		location = home,#
-		zoom = 12,#
-		maptype = c("terrain")#
-		)#
-}#
-#
-locationsMap <- function(map = basemap, locations = locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat), data = locations, colour = "blue", size = 3)#
-}#
-#
-fogMap_1hr <- function(map = basemap, locations = locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_1hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_3hr <- function(map = basemap, locations = locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_3hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_6hr <- function(map = basemap, locations = locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_6hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_12hr <- function(map = basemap, locations = locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_12hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_24hr <- function(map = basemap, locations = locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_24hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}
-locationsMap()
-locationsMap(basemap, locations)
-fogMap_1hr(basemap, locations)
-home <- '37.763393,-122.473808'#
-locations <- getLocations(home)#
-basemap <- SFmap("twin peaks, san francisco")
-ggmap(basemap)
-SFmap <- function(home) {#
-	get_map(#
-		location = home,#
-		zoom = 13,#
-		maptype = c("terrain")#
-		)#
-}
-ggmap(basemap)
-basemap <- SFmap("twin peaks, san francisco")
-ggmap(basemap)
 basemap <- SFmap(home)
-ggmap(basemap)
-map1hr <- fogMap_1hr(basemap, locations)#
-map3hr <- fogMap_3hr(basemap, locations)#
-map6 <- fogMap_6hr(basemap, locations)#
-map12 <- fogMap_12hr(basemap, locations)#
-map24 <- fogMap_24hr(basemap, locations)
-print(map1hr, map3hr)
-par(mfrow=c(2,3))
-plot(map1hr)
-fogMap_1hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_1hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_3hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_3hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_6hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_6hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_12hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_12hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_24hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_24hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}
-ggmap(map1hr)
-print(map1hr)
-fogMap_1hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_1hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_3hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_3hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_6hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_6hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_12hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_12hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}#
-#
-fogMap_24hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_24hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) #
-}
-map1hr <- fogMap_1hr(basemap, locations)#
-map3hr <- fogMap_3hr(basemap, locations)#
-map6 <- fogMap_6hr(basemap, locations)#
-map12 <- fogMap_12hr(basemap, locations)#
-map24 <- fogMap_24hr(basemap, locations)
-print(map1hr)
-fogMap_1hr(basemap, locations)
-fogMap_1hr <- function(map, locations) {#
-	ggmap(map) +#
-	geom_point(aes(x = lon, y = lat, alpha = fog_1hr), data = locations, colour = "blue", size = 10) +#
-	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 3) +#
-	scale_alpha()#
-}
-fogMap_1hr(basemap, locations)
-locations
-# Get fog forecasts for 1/3/6/12/24 hours from now#
-# Start with 1 hour from now#
-#
-getPWSForecast <- function(ID) {#
-	# gets hourly forecasts for next 10 days for 1 pws, with tempDiff and fog readings#
-	forecast.api <- urlBuilder(ID, hourlyAPI())#
-	forecast.json <- getURL(forecast.api)#
-	forecast.raw <- fromJSON(forecast.json)#
-	forecast.df <- flatten(as.data.frame(forecast.raw$hourly_forecast))#
-	# Add variables for tempDiff and fog. fog is limited to 0 (no fog) - 5 (most fog)#
-	forecast.df <- within(forecast.df, #
-		tempDiff <- as.numeric(temp.english) - as.numeric(dewpoint.english)#
-		)#
-	forecast.df$fog <- pmax((5 - forecast.df$tempDiff), 0, na.rm = TRUE)#
-	# Add variable for datetime in R friendly format#
-	forecast.df$datetime <- as.POSIXct(#
-		paste(forecast.df$FCTTIME.year, forecast.df$FCTTIME.mon_padded, forecast.df$FCTTIME.mday_padded, forecast.df$FCTTIME.hour_padded, forecast.df$FCTTIME.min, sep = "-"),#
-		format = "%Y-%m-%d-%H-%M"#
-	)#
-#
-	forecast.df#
-}#
-#
-fogForecast <- function(forecast, hours) {#
-	predictTime = round_date(Sys.time(), unit = c("hour")) + (hours * 60 * 60)#
-	forecast[forecast$datetime == predictTime,]$fog#
-}#
-#
-addFogForecasts <- function(pws) {#
-	# function to add columns for for forecast for 1 hour/3/6/12/24 to given location#
-	forecast <- getPWSForecast(pws$id)#
-	pws$fog_1hr <- fogForecast(forecast, 1)#
-	pws$fog_3hr <- fogForecast(forecast, 3)#
-	pws$fog_6hr <- fogForecast(forecast, 6)#
-	pws$fog_12hr <- fogForecast(forecast, 12)#
-	pws$fog_24hr <- fogForecast(forecast, 24)#
-	pws#
-}#
-#
-predictFog <- function(locations) {#
-	for (i in 1:nrow(locations)) {#
-		locations[i,] <- addFogForecasts(locations[i,])#
-		Sys.sleep(60/(max_calls_per_minute - 1))#
-	}#
-	locations#
-}
+addFogForecasts
+nrow(locations)
+str(locations)
 locations <- predictFog(locations)
-fogMap_1hr(basemap, locations)
-par(mfrow = c(2,3))
-fogMap_1hr(basemap, locations)
+showMaps()
+showMaps <- function () {#
+	map1hr <- fogMap_1hr(basemap, locations)#
+	map3hr <- fogMap_3hr(basemap, locations)#
+	map6hr <- fogMap_6hr(basemap, locations)#
+	map12hr <- fogMap_12hr(basemap, locations)#
+	map18hr <- fogMap_18hr(basemap, locations)#
+	multiplot(map3hr, map6hr, map12hr, map18hr, cols = 2)#
+}
+showMaps()
+fogMap_3hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_3hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.key.size = unit(2.5))#
+}
+showMaps()
+fogMap_3hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_3hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.key.size = unit(.5, units = "cm"))#
+}
+showMaps()
+fogMap_3hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_3hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.key.size = unit(.5, units = "cm"))# Functions for mapping#
+#
+SFmap <- function(home) {#
+	get_map(#
+		location = home,#
+		zoom = 13,#
+		maptype = c("terrain")#
+		)#
+}#
+#
+locationsMap <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat), data = locations, colour = "blue", size = 3)#
+}#
+#
+fogMap_1hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_1hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) #
+}#
+#
+fogMap_3hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_3hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none")#
+}#
+#
+fogMap_6hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_6hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.title=element_blank()) #
+}#
+#
+fogMap_12hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_12hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none")#
+}#
+#
+fogMap_18hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_18hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none")#
+}#
+#
+fogMap_24hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_24hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) #
+}#
+multiplot <- function(..., plotlist=NULL, cols) {#
+    require(grid)#
+#
+    # Make a list from the ... arguments and plotlist#
+    plots <- c(list(...), plotlist)#
+#
+    numPlots = length(plots)#
+#
+    # Make the panel#
+    plotCols = cols                          # Number of columns of plots#
+    plotRows = ceiling(numPlots/plotCols) # Number of rows needed, calculated from # of cols#
+#
+    # Set up the page#
+    grid.newpage()#
+    pushViewport(viewport(layout = grid.layout(plotRows, plotCols)))#
+    vplayout <- function(x, y)#
+        viewport(layout.pos.row = x, layout.pos.col = y)#
+#
+    # Make each plot, in the correct location#
+    for (i in 1:numPlots) {#
+        curRow = ceiling(i/plotCols)#
+        curCol = (i-1) %% plotCols + 1#
+        print(plots[[i]], vp = vplayout(curRow, curCol ))#
+    }#
+#
+}#
+}
+showMaps()
+fogMap_3hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_3hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none")#
+}
 fogMap_3hr(basemap, locations)
-quartz()
-fogMap_6hr(basemap, locations)
-fogMap_1hr(basemap, locations)#
-quartz()#
-quartz()#
-fogMap_3hr(basemap, locations)#
-quartz()#
-fogMap_6hr(basemap, locations)#
-quartz()#
-fogMap_12hr(basemap, locations)#
-quartz()#
-fogMap_24hr(basemap, locations)
-map1hr <- fogMap_1hr(basemap, locations)#
 map3hr <- fogMap_3hr(basemap, locations)#
-map6hr <- fogMap_6hr(basemap, locations)#
-map12hr <- fogMap_12hr(basemap, locations)#
-map24hr <- fogMap_24hr(basemap, locations)
-multiplot(map3hr, map6hr, map12hr, map24hr, cols = 2)
+	map6hr <- fogMap_6hr(basemap, locations)#
+	map12hr <- fogMap_12hr(basemap, locations)#
+	map18hr <- fogMap_18hr(basemap, locations)#
+	multiplot(map3hr, map6hr, map12hr, map18hr, cols = 2)
+fogMap_12hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_12hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none")#
+}
+fogMap_12hr(basemap, locations)
+?facet_wrap
+fogMap_6hr(basemap, locations)
+map3hr <- fogMap_3hr(basemap, locations)#
+	map6hr <- fogMap_6hr(basemap, locations)#
+	map12hr <- fogMap_12hr(basemap, locations)#
+	map18hr <- fogMap_18hr(basemap, locations)#
+	multiplot(map3hr, map6hr, map12hr, map18hr, cols = 2)
+fogMap_12hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_12hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none")#
+}#
+#
+fogMap_18hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_18hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none")#
+}
+map3hr <- fogMap_3hr(basemap, locations)#
+	map6hr <- fogMap_6hr(basemap, locations)#
+	map12hr <- fogMap_12hr(basemap, locations)#
+	map18hr <- fogMap_18hr(basemap, locations)#
+	multiplot(map3hr, map6hr, map12hr, map18hr, cols = 2)
+map3hr <- fogMap_3hr(basemap, locations)#
+	map6hr <- fogMap_6hr(basemap, locations)#
+	map12hr <- fogMap_12hr(basemap, locations)#
+	map18hr <- fogMap_18hr(basemap, locations)#
+	multiplot(map3hr, map6hr, map12hr, map18hr, cols = 2)
+# Functions for mapping#
+#
+SFmap <- function(home) {#
+	get_map(#
+		location = home,#
+		zoom = 13,#
+		maptype = c("terrain")#
+		)#
+}#
+#
+locationsMap <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat), data = locations, colour = "blue", size = 3)#
+}#
+#
+fogMap_1hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_1hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) #
+}#
+#
+fogMap_3hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_3hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none")#
+}#
+#
+fogMap_6hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_6hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none")#
+}#
+#
+fogMap_12hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_12hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none")#
+}#
+#
+fogMap_18hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_18hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none")#
+}#
+#
+fogMap_24hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_24hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) #
+}#
 multiplot <- function(..., plotlist=NULL, cols) {#
     require(grid)#
 #
@@ -911,13 +632,259 @@ multiplot <- function(..., plotlist=NULL, cols) {#
     }#
 #
 }
-multiplot(map3hr, map6hr, map12hr, map24hr, cols = 2)
-locationsMap()
-locationsMap(basemap, locations))
-locationsMap(basemap, locations)
-map1hr <- fogMap_1hr(basemap, locations)#
 map3hr <- fogMap_3hr(basemap, locations)#
-map6hr <- fogMap_6hr(basemap, locations)#
-map12hr <- fogMap_12hr(basemap, locations)#
-map24hr <- fogMap_24hr(basemap, locations)#
-multiplot(map3hr, map6hr, map12hr, map24hr, cols = 2)
+	map6hr <- fogMap_6hr(basemap, locations)#
+	map12hr <- fogMap_12hr(basemap, locations)#
+	map18hr <- fogMap_18hr(basemap, locations)#
+	multiplot(map3hr, map6hr, map12hr, map18hr, cols = 2)
+source("mapping.R")
+map3hr <- fogMap_3hr(basemap, locations)#
+	map6hr <- fogMap_6hr(basemap, locations)#
+	map12hr <- fogMap_12hr(basemap, locations)#
+	map18hr <- fogMap_18hr(basemap, locations)#
+	multiplot(map3hr, map6hr, map12hr, map18hr, cols = 2)
+quartz()
+fogMap_24hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_24hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none") +#
+	ggtitle("fog_24hr")#
+}
+fogMap_24hr(basemap, locations)
+# Functions for mapping#
+#
+SFmap <- function(home) {#
+	get_map(#
+		location = home,#
+		zoom = 13,#
+		maptype = c("terrain")#
+		)#
+}#
+#
+locationsMap <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat), data = locations, colour = "blue", size = 3)#
+}#
+#
+fogMap_1hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_1hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none") +#
+	ggtitle("fog_1hr")#
+}#
+#
+fogMap_3hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_3hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none") +#
+	ggtitle("fog_3hr")#
+}#
+#
+fogMap_6hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_6hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none") +#
+	ggtitle("fog_6hr")#
+}#
+#
+fogMap_12hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_12hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none") +#
+	ggtitle("fog_12hr")#
+}#
+#
+fogMap_18hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_18hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none") +#
+	ggtitle("fog_18hr")#
+}#
+#
+fogMap_24hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_24hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none") +#
+	ggtitle("fog_24hr")#
+}#
+multiplot <- function(..., plotlist=NULL, cols) {#
+    require(grid)#
+#
+    # Make a list from the ... arguments and plotlist#
+    plots <- c(list(...), plotlist)#
+#
+    numPlots = length(plots)#
+#
+    # Make the panel#
+    plotCols = cols                          # Number of columns of plots#
+    plotRows = ceiling(numPlots/plotCols) # Number of rows needed, calculated from # of cols#
+#
+    # Set up the page#
+    grid.newpage()#
+    pushViewport(viewport(layout = grid.layout(plotRows, plotCols)))#
+    vplayout <- function(x, y)#
+        viewport(layout.pos.row = x, layout.pos.col = y)#
+#
+    # Make each plot, in the correct location#
+    for (i in 1:numPlots) {#
+        curRow = ceiling(i/plotCols)#
+        curCol = (i-1) %% plotCols + 1#
+        print(plots[[i]], vp = vplayout(curRow, curCol ))#
+    }#
+#
+}
+names(locations0)
+str(locations)
+showMaps <- function () {#
+	map1hr <- fogMap_1hr(basemap, locations)#
+	map3hr <- fogMap_3hr(basemap, locations)#
+	map6hr <- fogMap_6hr(basemap, locations)#
+	map12hr <- fogMap_12hr(basemap, locations)#
+	map18hr <- fogMap_18hr(basemap, locations)#
+	map24hr <- fogMap_24hr(basemap, locations)#
+	multiplot(map1hr, map3hr, map6hr, map12hr, map18hr, map24hr, cols = 3)#
+}
+map1hr <- fogMap_1hr(basemap, locations)#
+	map3hr <- fogMap_3hr(basemap, locations)#
+	map6hr <- fogMap_6hr(basemap, locations)#
+	map12hr <- fogMap_12hr(basemap, locations)#
+	map18hr <- fogMap_18hr(basemap, locations)#
+	map24hr <- fogMap_24hr(basemap, locations)#
+	multiplot(map1hr, map3hr, map6hr, map12hr, map18hr, map24hr, cols = 3)
+fogMap_6hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_6hr), data = locations, colour = "blue", size = 20) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none", axis.line=element_blank(),axis.text.x=element_blank(),#
+          axis.text.y=element_blank(),axis.ticks=element_blank(),#
+          axis.title.x=element_blank(),#
+          axis.title.y=element_blank()) +#
+	ggtitle("fog_6hr")#
+}
+fogMap_6hr(basemap, locations)
+source("mapping.R")
+showMaps <- function () {#
+	map1hr <- fogMap_1hr(basemap, locations)#
+	map3hr <- fogMap_3hr(basemap, locations)#
+	map6hr <- fogMap_6hr(basemap, locations)#
+	map12hr <- fogMap_12hr(basemap, locations)#
+	map18hr <- fogMap_18hr(basemap, locations)#
+	map24hr <- fogMap_24hr(basemap, locations)#
+	multiplot(map1hr, map3hr, map6hr, map12hr, map18hr, map24hr, cols = 3)#
+}
+showMaps()
+ggsave("fog_all.png")
+# Functions for mapping#
+#
+SFmap <- function(home) {#
+	get_map(#
+		location = home,#
+		zoom = 13,#
+		maptype = c("terrain")#
+		)#
+}#
+#
+locationsMap <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat), data = locations, colour = "blue", size = 3)#
+}#
+#
+fogMap_1hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_1hr), data = locations, colour = "blue", size = 10) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none", axis.line=element_blank(),axis.text.x=element_blank(),#
+          axis.text.y=element_blank(),axis.ticks=element_blank(),#
+          axis.title.x=element_blank(),#
+          axis.title.y=element_blank()) +#
+	ggtitle("fog_1hr")#
+}#
+#
+fogMap_3hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_3hr), data = locations, colour = "blue", size = 10) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none", axis.line=element_blank(),axis.text.x=element_blank(),#
+          axis.text.y=element_blank(),axis.ticks=element_blank(),#
+          axis.title.x=element_blank(),#
+          axis.title.y=element_blank()) +#
+	ggtitle("fog_3hr")#
+}#
+#
+fogMap_6hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_6hr), data = locations, colour = "blue", size = 10) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none", axis.line=element_blank(),axis.text.x=element_blank(),#
+          axis.text.y=element_blank(),axis.ticks=element_blank(),#
+          axis.title.x=element_blank(),#
+          axis.title.y=element_blank()) +#
+	ggtitle("fog_6hr")#
+}#
+#
+fogMap_12hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_12hr), data = locations, colour = "blue", size = 10) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none", axis.line=element_blank(),axis.text.x=element_blank(),#
+          axis.text.y=element_blank(),axis.ticks=element_blank(),#
+          axis.title.x=element_blank(),#
+          axis.title.y=element_blank()) +#
+	ggtitle("fog_12hr")#
+}#
+#
+fogMap_18hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_18hr), data = locations, colour = "blue", size = 10) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none", axis.line=element_blank(),axis.text.x=element_blank(),#
+          axis.text.y=element_blank(),axis.ticks=element_blank(),#
+          axis.title.x=element_blank(),#
+          axis.title.y=element_blank()) +#
+	ggtitle("fog_18hr")#
+}#
+#
+fogMap_24hr <- function(map, locations) {#
+	ggmap(map) +#
+	geom_point(aes(x = lon, y = lat, alpha = fog_24hr), data = locations, colour = "blue", size = 10) +#
+	geom_point(aes(x = 37.763266, y = -122.473647, alpha = 5), data = locations, colour = "red", size = 2) +#
+	theme(legend.position="none", axis.line=element_blank(),axis.text.x=element_blank(),#
+          axis.text.y=element_blank(),axis.ticks=element_blank(),#
+          axis.title.x=element_blank(),#
+          axis.title.y=element_blank()) +#
+	ggtitle("fog_24hr")#
+}#
+multiplot <- function(..., plotlist=NULL, cols) {#
+    require(grid)#
+#
+    # Make a list from the ... arguments and plotlist#
+    plots <- c(list(...), plotlist)#
+#
+    numPlots = length(plots)#
+#
+    # Make the panel#
+    plotCols = cols                          # Number of columns of plots#
+    plotRows = ceiling(numPlots/plotCols) # Number of rows needed, calculated from # of cols#
+#
+    # Set up the page#
+    grid.newpage()#
+    pushViewport(viewport(layout = grid.layout(plotRows, plotCols)))#
+    vplayout <- function(x, y)#
+        viewport(layout.pos.row = x, layout.pos.col = y)#
+#
+    # Make each plot, in the correct location#
+    for (i in 1:numPlots) {#
+        curRow = ceiling(i/plotCols)#
+        curCol = (i-1) %% plotCols + 1#
+        print(plots[[i]], vp = vplayout(curRow, curCol ))#
+    }#
+#
+}
+showMaps()

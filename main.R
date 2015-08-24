@@ -22,16 +22,20 @@ basemap <- SFmap(home)
 ## EXECUTE THIS EVERY TIME
 
 # Predict fog for those locations
+
 locations <- predictFog(locations)
 
-# Display fog map
-map1hr <- fogMap_1hr(basemap, locations)
-map3hr <- fogMap_3hr(basemap, locations)
-map6hr <- fogMap_6hr(basemap, locations)
-map12hr <- fogMap_12hr(basemap, locations)
-map24hr <- fogMap_24hr(basemap, locations)
-multiplot(map3hr, map6hr, map12hr, map24hr, cols = 2)
 
+# Display fog map
+showMaps <- function () {
+	map1hr <- fogMap_1hr(basemap, locations)
+	map3hr <- fogMap_3hr(basemap, locations)
+	map6hr <- fogMap_6hr(basemap, locations)
+	map12hr <- fogMap_12hr(basemap, locations)
+	map18hr <- fogMap_18hr(basemap, locations)
+	map24hr <- fogMap_24hr(basemap, locations)
+	multiplot(map1hr, map3hr, map6hr, map12hr, map18hr, map24hr, cols = 3)
+}
 
 
 
