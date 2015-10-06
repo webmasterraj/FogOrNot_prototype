@@ -27,17 +27,15 @@ locations <- predictFog(locations)
 
 
 # Display fog map
-showMaps <- function () {
+showMap <- function() {
 	map1hr <- fogMap_1hr(basemap, locations)
 	map3hr <- fogMap_3hr(basemap, locations)
 	map6hr <- fogMap_6hr(basemap, locations)
 	map12hr <- fogMap_12hr(basemap, locations)
 	map18hr <- fogMap_18hr(basemap, locations)
 	map24hr <- fogMap_24hr(basemap, locations)
-	multiplot(map1hr, map3hr, map6hr, map12hr, map18hr, map24hr, cols = 3)
+	multiplot(map1hr, map3hr, map6hr, map12hr, map18hr, map24hr, cols = 3)	
 }
-
-
 
 
 ## TESTING PURPOSES ONLY
